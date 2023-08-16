@@ -4,6 +4,7 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../src/config';
 
 function Signup({ navigation }) {
+  const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -20,6 +21,7 @@ function Signup({ navigation }) {
       if (password === confirmPassword) {
         await createUserWithEmailAndPassword(auth, email, password);
         console.log('User successfully signed up!');
+        console.log('Full Name:', fullName);
         navigation.navigate('Main');
       } else {
         setError("Passwords don't match");
@@ -47,6 +49,14 @@ function Signup({ navigation }) {
         <Text style={styles.link}>Login to existing account</Text>
       </Pressable>
 
+      <TextInput
+        value={fullName}
+        onChangeText={setFullName}
+        placeholder="Enter full name"
+        autoCapitalize="words"
+        placeholderTextColor="#aaa"
+        style={styles.input}
+      />
       <TextInput
         value={email}
         onChangeText={setEmail}
